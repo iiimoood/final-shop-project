@@ -1,16 +1,52 @@
 import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { IMGS_URL, API_URL } from '../../../config';
-import { Container, Spinner } from 'react-bootstrap';
+import { /*useEffect,*/ useState } from 'react';
+//import { Navigate } from 'react-router-dom';
+import { IMGS_URL /*API_URL*/ } from '../../../config';
+import { /*Container, Spinner,*/ Button, Form } from 'react-bootstrap';
 import { getProductById } from '../../../redux/productsRedux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/cartRedux';
 
 const Product = () => {
   const { id } = useParams();
   //const [product, setProduct] = useState(null);
   //const [loading, setLoading] = useState(true);
   const product = useSelector((state) => getProductById(state, id));
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  const changeQuantity = (event) => {
+    setQuantity(parseInt(event.target.value, 10));
+  };
+
+  const addProductToCart = () => {
+    const productToAdd = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      mainPhoto: product.mainPhoto,
+      description: product.description,
+      photos: product.photos,
+      quantity: quantity,
+    };
+
+    dispatch(addToCart(productToAdd));
+
+    const currentCart = localStorage.getItem('cart');
+    let cartData = currentCart ? JSON.parse(currentCart) : [];
+
+    const existingProduct = cartData.find(
+      (item) => item.id === productToAdd.id,
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += productToAdd.quantity;
+    } else {
+      cartData.push(productToAdd);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cartData));
+  };
 
   /*useEffect(() => {
     if (id) {
@@ -62,6 +98,23 @@ const Product = () => {
               </p>
               <p>{product.description}</p>
             </div>
+          </div>
+          <div className="d-flex column mb-4">
+            <Form.Control
+              type="number"
+              min={1}
+              max={10}
+              defaultValue={1}
+              onChange={changeQuantity}
+              style={{
+                width: '60px',
+                marginRight: '10px',
+                height: '50px',
+              }}
+            />
+            <Button variant="dark" onClick={addProductToCart}>
+              Dodaj do koszyka
+            </Button>
           </div>
           <div className="d-flex row w-100">
             {product.photos.map((photo, index) => (

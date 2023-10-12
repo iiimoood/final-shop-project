@@ -1,3 +1,5 @@
+import { getLocalCartData } from './cartRedux';
+
 const initialState = {
   products: {
     data: [
@@ -102,7 +104,9 @@ const initialState = {
   },
 
   orders: [],
-  cart: {},
+  cart: {
+    products: getLocalCartData(),
+  },
 };
 
 export default initialState;

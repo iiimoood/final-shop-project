@@ -1,5 +1,6 @@
 import Products from '../../features/Products/Products';
 
+
 const Home = () => {
   return (
     <div>
@@ -9,7 +10,7 @@ const Home = () => {
           height: '300px',
           backgroundImage: `url(${process.env.PUBLIC_URL}/images/background-home.jpg)`,
           backgroundSize: 'cover',
-          color: 'black',
+          color: 'white',
         }}
       >
         <div className="d-flex h-75 w-100 justify-content-center align-items-end">

@@ -106,6 +106,7 @@ const initialState = {
   orders: [],
   cart: {
     products: getLocalCartData(),
+    deliveryFee: 17,
   },
 };
 

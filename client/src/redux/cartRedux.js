@@ -1,5 +1,6 @@
 //selectors
 export const getAllCartProducts = ({ cart }) => cart.products;
+export const getDeliveryFee = ({ cart }) => cart.deliveryFee;
 // actions
 const createActionName = (actionName) => `app/cart/${actionName}`;
 const ADD_TO_CART = createActionName('ADD_TO_CART');
@@ -42,7 +43,10 @@ const cartReducer = (statePart = [], action) => {
       } else {
         return {
           ...statePart,
-          products: [...statePart.products, { ...action.payload, quantity: 1 }],
+          products: [
+            ...statePart.products,
+            { ...action.payload, quantity: action.payload.quantity },
+          ],
         };
       }
     }

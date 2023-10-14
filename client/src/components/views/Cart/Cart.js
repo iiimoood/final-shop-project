@@ -5,19 +5,18 @@ import {
   removeFromCart,
   updateInCart,
 } from '../../../redux/cartRedux';
-import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { getDeliveryFee } from '../../../redux/cartRedux';
+import { calculateTotalPrice } from '../../../utils/calculateTotalPrice';
 
 const Cart = ({ toggleCart }) => {
   const cartProducts = useSelector(getAllCartProducts);
   const dispatch = useDispatch();
   const [comments, setComments] = useState({});
   const [quantityInputs] = useState({});
-  const deliveryFee = 17;
-  const totalProductsPrice = cartProducts.reduce(
-    (total, product) => total + product.price * product.quantity,
-    0,
-  );
+  const deliveryFee = useSelector(getDeliveryFee);
+  const totalProductsPrice = calculateTotalPrice(cartProducts);
 
   const totalPrice = totalProductsPrice + deliveryFee;
 

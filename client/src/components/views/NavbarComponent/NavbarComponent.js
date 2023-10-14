@@ -1,17 +1,32 @@
 import { Navbar } from 'react-bootstrap';
 import { getAllCartProducts } from '../../../redux/cartRedux';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Cart from '../Cart/Cart';
 
 const NavbarComponent = () => {
   const cartProducts = useSelector(getAllCartProducts);
   const cartProductsAmount = cartProducts.length;
   const [isCartVisible, setCartVisible] = useState(false);
+  const [cartWidth, setCartWidth] = useState(
+    window.innerWidth < 420 ? '100%' : '400px',
+  );
 
   const toggleCart = () => {
     setCartVisible((prevVisible) => !prevVisible);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCartWidth(window.innerWidth < 420 ? '100%' : '400px');
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div>
@@ -36,11 +51,11 @@ const NavbarComponent = () => {
           position: 'absolute',
           top: '55px',
           right: 0,
-          width: '400px',
+          width: cartWidth,
           height: '450px',
           background: 'white',
           zIndex: 99,
-          border: '1px solid black',
+          border: '2px solid black',
           display: isCartVisible ? 'block' : 'none',
         }}
       >

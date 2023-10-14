@@ -28,6 +28,7 @@ const Product = () => {
       description: product.description,
       photos: product.photos,
       quantity: quantity,
+      comment: '',
     };
 
     dispatch(addToCart(productToAdd));

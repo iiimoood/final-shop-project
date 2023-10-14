@@ -16,7 +16,7 @@ const Summary = ({ onSubmitOrder }) => {
     firstName: '',
     lastName: '',
     address: '',
-    phoneNumber: '',
+    phone: '',
   });
 
   const handleInputChange = (e) => {
@@ -50,22 +50,31 @@ const Summary = ({ onSubmitOrder }) => {
             <h3>Twoje produkty:</h3>
             <section>
               {cartProducts.map((product) => (
-                <article
-                  key={product.id}
-                  className="d-flex flex-row justify-content-center w-100"
-                >
-                  <p style={{ border: '1px solid grey', padding: '5px' }}>
-                    {product.title}
-                  </p>
-                  <p style={{ border: '1px solid grey', padding: '5px' }}>
-                    {product.price} zł
-                  </p>
-                  <p style={{ border: '1px solid grey', padding: '5px' }}>
-                    {product.quantity} szt.
-                  </p>
-                  <p style={{ border: '1px solid grey', padding: '5px' }}>
-                    Razem: {product.price * product.quantity} zł
-                  </p>
+                <article key={product.id}>
+                  <div className="d-flex flex-row justify-content-center w-100 ">
+                    <p style={{ border: '1px solid grey', padding: '5px' }}>
+                      {product.title}
+                    </p>
+                    <p style={{ border: '1px solid grey', padding: '5px' }}>
+                      {product.price} zł
+                    </p>
+                    <p style={{ border: '1px solid grey', padding: '5px' }}>
+                      {product.quantity} szt.
+                    </p>
+                    <p style={{ border: '1px solid grey', padding: '5px' }}>
+                      Razem: {product.price * product.quantity} zł
+                    </p>
+                  </div>
+                  {product.comment && (
+                    <p
+                      style={{
+                        width: '100%',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Uwagi do produktu: {product.comment}
+                    </p>
+                  )}
                 </article>
               ))}
             </section>

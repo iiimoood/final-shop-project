@@ -13,7 +13,6 @@ import { calculateTotalPrice } from '../../../utils/calculateTotalPrice';
 const Cart = ({ toggleCart }) => {
   const cartProducts = useSelector(getAllCartProducts);
   const dispatch = useDispatch();
-  const [comments, setComments] = useState({});
   const [quantityInputs] = useState({});
   const deliveryFee = useSelector(getDeliveryFee);
   const totalProductsPrice = calculateTotalPrice(cartProducts);
@@ -40,12 +39,13 @@ const Cart = ({ toggleCart }) => {
   };
 
   const updateQuantity = (productId, newQuantity) => {
-    dispatch(updateInCart({ id: productId, quantity: newQuantity }));
+    dispatch(updateInCart({ productId, quantity: newQuantity }));
     updateLocalStorage(cartProducts);
   };
 
-  const addComment = (productId, comment) => {
-    setComments({ ...comments, [productId]: comment });
+  const changeComment = (productId, newComment) => {
+    dispatch(updateInCart({ productId, comment: newComment }));
+    updateLocalStorage(cartProducts);
   };
 
   useEffect(() => {
@@ -90,8 +90,8 @@ const Cart = ({ toggleCart }) => {
                   <input
                     type="number"
                     min={1}
-                    value={product.quantity}
-                    onChange={(e) => updateQuantity(product.id, e.target.value)}
+                    defaultValue={product.quantity}
+                    onBlur={(e) => updateQuantity(product.id, e.target.value)}
                     style={{ width: '45px', border: '1px solid #ccc' }}
                   />
                 </div>
@@ -99,8 +99,8 @@ const Cart = ({ toggleCart }) => {
               <input
                 type="text"
                 placeholder="Dodaj komentarz"
-                value={comments[product.id] || ''}
-                onChange={(e) => addComment(product.id, e.target.value)}
+                defaultValue={product.comment}
+                onBlur={(e) => changeComment(product.id, e.target.value)}
                 className="mb-3 w-100"
               />
               <p>

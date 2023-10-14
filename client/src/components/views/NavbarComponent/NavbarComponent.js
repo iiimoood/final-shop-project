@@ -59,7 +59,7 @@ const NavbarComponent = () => {
           display: isCartVisible ? 'block' : 'none',
         }}
       >
-        {isCartVisible && <Cart onClose={toggleCart} />}
+        {isCartVisible && <Cart toggleCart={toggleCart} />}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
-const Cart = () => {
+const Cart = ({ toggleCart }) => {
   const cartProducts = useSelector(getAllCartProducts);
   const dispatch = useDispatch();
   const [comments, setComments] = useState({});
@@ -123,7 +123,9 @@ const Cart = () => {
             {totalPrice} zł
           </p>
           <Link to="/cart/summary">
-            <Button variant="dark">Podsumowanie </Button>
+            <Button variant="dark" onClick={toggleCart}>
+              Podsumowanie{' '}
+            </Button>
           </Link>
         </div>
       )}

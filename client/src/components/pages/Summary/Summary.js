@@ -44,58 +44,60 @@ const Summary = ({ onSubmitOrder }) => {
         </section>
       </div>
 
-      <div className="ms-auto me-auto">
-        <h3>Dane do zamówienia:</h3>
-        <Form onSubmit={handleSubmit}>
+      <div className="d-flex flex-column mx-auto">
+        <h3 className="text-center mb-2">Dane do zamówienia:</h3>
+        <Form onSubmit={handleSubmit} className="d-flex flex-column mx-auto">
           <Form.Group controlId="firstName" className="mb-2">
-            <Form.Label>Imię:</Form.Label>
+            <Form.Label className="w-100 text-center">Imię:</Form.Label>
             <Form.Control
               type="text"
               name="firstName"
               value={formData.firstName}
               onChange={handleInputChange}
               required
-              className="w-25"
+              className="w-100"
             />
           </Form.Group>
 
           <Form.Group controlId="lastName" className="mb-2">
-            <Form.Label>Nazwisko:</Form.Label>
+            <Form.Label className="w-100 text-center">Nazwisko:</Form.Label>
             <Form.Control
               type="text"
               name="lastName"
               value={formData.lastName}
               onChange={handleInputChange}
               required
-              className="w-25"
+              className="w-100"
             />
           </Form.Group>
 
           <Form.Group controlId="address" className="mb-2">
-            <Form.Label>Adres:</Form.Label>
+            <Form.Label className="w-100 text-center">Adres:</Form.Label>
             <Form.Control
               as="textarea"
               name="address"
               value={formData.address}
               onChange={handleInputChange}
               required
-              className="w-25"
+              className="w-100"
             />
           </Form.Group>
 
           <Form.Group controlId="phoneNumber" className="mb-4">
-            <Form.Label>Numer telefonu:</Form.Label>
+            <Form.Label className="w-100 text-center">
+              Numer telefonu:
+            </Form.Label>
             <Form.Control
               type="tel"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleInputChange}
               required
-              className="w-25"
+              className="w-100"
             />
           </Form.Group>
 
-          <Button variant="dark" type="submit">
+          <Button variant="dark" type="submit" className="w-50 mx-auto">
             Zamów
           </Button>
         </Form>

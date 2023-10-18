@@ -14,7 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
   const loading = useSelector(getProductsLoading);
 
-  /*useEffect(() => dispatch(fetchProducts()), [dispatch]);
+  useEffect(() => dispatch(fetchProducts()), [dispatch]);
 
   if (loading) {
     return (
@@ -28,7 +28,7 @@ const App = () => {
       </Container>
     );
   }
-*/
+  
   return (
     <div>
       <Header />

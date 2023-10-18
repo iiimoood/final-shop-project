@@ -1,17 +1,15 @@
 import { useParams } from 'react-router';
-import { /*useEffect,*/ useState } from 'react';
-//import { Navigate } from 'react-router-dom';
-import { IMGS_URL /*API_URL*/ } from '../../../config';
-import { /*Container, Spinner,*/ Button, Form } from 'react-bootstrap';
-import { getProductById } from '../../../redux/productsRedux';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { IMGS_URL, API_URL } from '../../../config';
+import { Container, Spinner, Button, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../redux/cartRedux';
 
 const Product = () => {
   const { id } = useParams();
-  //const [product, setProduct] = useState(null);
-  //const [loading, setLoading] = useState(true);
-  const product = useSelector((state) => getProductById(state, id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
@@ -49,7 +47,7 @@ const Product = () => {
     localStorage.setItem('cart', JSON.stringify(cartData));
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (id) {
       setLoading(true);
       fetch(`${API_URL}/products/${id}`)
@@ -73,9 +71,8 @@ const Product = () => {
       </Container>
     );
   }
-  */
 
-  //if (!product) return <Navigate to="/" />;
+  if (!product) return <Navigate to="/" />;
   return (
     <div>
       <div className="card d-flex flex-row w-75 border-0 m-auto">

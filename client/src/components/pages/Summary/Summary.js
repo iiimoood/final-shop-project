@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { getAllCartProducts } from '../../../redux/cartRedux';
-import { getDeliveryFee } from '../../../redux/cartRedux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getAllCartProducts,
+  getDeliveryFee,
+  clearCart,
+} from '../../../redux/cartRedux';
 import { calculateTotalPrice } from '../../../utils/calculateTotalPrice';
+import { API_URL } from '../../../config';
+import { useNavigate } from 'react-router-dom';
 
 const Summary = ({ onSubmitOrder }) => {
   const cartProducts = useSelector(getAllCartProducts);
@@ -11,6 +16,8 @@ const Summary = ({ onSubmitOrder }) => {
   const totalProductsPrice = calculateTotalPrice(cartProducts);
 
   const totalPrice = totalProductsPrice + deliveryFee;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -27,9 +34,35 @@ const Summary = ({ onSubmitOrder }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmitOrder(formData);
+    const orderData = {
+      ...formData,
+      products: cartProducts,
+      totalPrice: totalPrice,
+    };
+    try {
+      const response = await fetch(`${API_URL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Zamówienie wysłane poprawnie. Dane zamówienia: ', data);
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
+        //localStorage.removeItem('cart');
+        //dispatch(clearCart());
+      } else {
+        console.log('Zamówienie utworzone błędnie: ', data);
+      }
+    } catch (error) {
+      console.log('Problem z wysyłką zamówienia: ', error);
+    }
   };
 
   return (
@@ -136,8 +169,8 @@ const Summary = ({ onSubmitOrder }) => {
                 </Form.Label>
                 <Form.Control
                   type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleInputChange}
                   required
                   className="w-100"

@@ -24,7 +24,6 @@ const Product = () => {
       price: product.price,
       mainPhoto: product.mainPhoto,
       description: product.description,
-      photos: product.photos,
       quantity: quantity,
       comment: '',
     };
@@ -85,12 +84,13 @@ const Product = () => {
                 width: '250px',
                 height: '300px',
                 objectFit: 'cover',
+                margin: '0 auto',
               }}
             />
           </div>
           <h3 className="card-title">{product.title}</h3>
           <div className="d-flex column">
-            <div className="w-50">
+            <div className="w-100">
               <p>
                 <span className="fw-bold">Cena:</span> {product.price} zł
               </p>
@@ -115,11 +115,33 @@ const Product = () => {
             </Button>
           </div>
           <div className="d-flex row w-100">
-            {product.photos.map((photo, index) => (
-              <div className="d-flex justify-content-center" key={index}>
-                <img src={IMGS_URL + photo} alt={`Additional ${index + 1}`} />
-              </div>
-            ))}
+            <div className="d-flex justify-content-center flex-column">
+              <img
+                src={IMGS_URL + product.title + '-2.jpg'}
+                alt={product.title + '-2'}
+                style={{
+                  width: '250px',
+                  height: '300px',
+                  paddingBottom: '15px',
+                  margin: '0 auto',
+                }}
+              />
+              <img
+                src={IMGS_URL + product.title + '-3.jpg'}
+                alt={product.title + '-3'}
+                style={{
+                  width: '250px',
+                  height: '300px',
+                  paddingBottom: '15px',
+                  margin: '0 auto',
+                }}
+              />
+              <img
+                src={IMGS_URL + product.title + '-4.jpg'}
+                alt={product.title + '-4'}
+                style={{ width: '250px', height: '300px', margin: '0 auto' }}
+              />
+            </div>
           </div>
         </div>
       </div>

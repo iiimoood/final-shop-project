@@ -20,7 +20,7 @@ const Products = () => {
           >
             <div className="card-body">
               <img
-                src={IMGS_URL + product.photo}
+                src={IMGS_URL + product.mainPhoto}
                 alt=""
                 style={{
                   width: '95%',

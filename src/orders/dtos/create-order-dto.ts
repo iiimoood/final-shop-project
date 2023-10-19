@@ -1,5 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsString, IsArray, IsObject } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsArray,
+  IsObject,
+  IsNumber,
+} from 'class-validator';
 
 export class CreateOrderDTO {
   @IsNotEmpty()
@@ -25,4 +31,7 @@ export class CreateOrderDTO {
     quantity: number;
     comment?: string;
   }>;
+
+  @IsNumber()
+  totalPrice: number;
 }

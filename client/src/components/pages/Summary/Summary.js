@@ -36,9 +36,16 @@ const Summary = ({ onSubmitOrder }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const productsForOrder = cartProducts.map((product) => ({
+      productId: product.id,
+      quantity: product.quantity,
+      comment: product.comment || null,
+    }));
+
     const orderData = {
       ...formData,
-      products: cartProducts,
+      products: productsForOrder,
       totalPrice: totalPrice,
     };
     try {
@@ -50,6 +57,7 @@ const Summary = ({ onSubmitOrder }) => {
         body: JSON.stringify(orderData),
       });
       const data = await response.json();
+      console.log(data)
       if (response.ok) {
         console.log('Zamówienie wysłane poprawnie. Dane zamówienia: ', data);
         setTimeout(() => {

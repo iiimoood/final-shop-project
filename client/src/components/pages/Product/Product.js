@@ -21,7 +21,7 @@ const Product = () => {
     const productToAdd = {
       id: product.id,
       title: product.title,
-      price: product.price,
+      price: parseFloat(product.price),
       mainPhoto: product.mainPhoto,
       description: product.description,
       quantity: quantity,

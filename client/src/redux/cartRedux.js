@@ -69,7 +69,7 @@ const cartReducer = (statePart = [], action) => {
       return {
         ...statePart,
         products: statePart.products.map((product) =>
-          product.id === action.payload.productId
+          product.id === action.payload.id
             ? { ...product, ...action.payload }
             : product,
         ),

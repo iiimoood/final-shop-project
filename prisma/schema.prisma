@@ -16,28 +16,26 @@ model Product {
   price       Decimal
   mainPhoto   String
   description String
-  orderItems  OrderItem[]
+  orders      OrderItem[]
 }
 
 model Order {
-  id          String      @id @default(uuid())
-  firstName  String
-  lastName String
-  address        String
-  phone         String
-  totalPrice    Float
-  
-  createdAt DateTime @default(now())
-  products    OrderItem[]
+  id        String      @id @default(uuid())
+  firstName String
+  lastName  String
+  address   String
+  phone     String
+  totalPrice Float
+  createdAt DateTime   @default(now())
+  products OrderItem[]
 }
 
 model OrderItem {
-  id          String      @id @default(uuid())
-  quantity    String
-  comment     String?
-
-  product     Product   @relation(fields: [productId], references: [id])
-  productId   String
-  order       Order     @relation(fields: [orderId], references: [id])
-  orderId     String
+  id        String      @id @default(uuid())
+  quantity  Int
+  comment   String?
+  productId String
+  orderId   String
+  product   Product   @relation(fields: [productId], references: [id])
+  order     Order     @relation(fields: [orderId], references: [id])
 }

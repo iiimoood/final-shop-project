@@ -38,13 +38,13 @@ const Cart = ({ toggleCart }) => {
     updateLocalStorage(cartProducts);
   };
 
-  const updateQuantity = (productId, newQuantity) => {
-    dispatch(updateInCart({ productId, quantity: newQuantity }));
+  const updateQuantity = (id, newQuantity) => {
+    dispatch(updateInCart({ id, quantity: parseInt(newQuantity, 10) }));
     updateLocalStorage(cartProducts);
   };
 
-  const changeComment = (productId, newComment) => {
-    dispatch(updateInCart({ productId, comment: newComment }));
+  const changeComment = (id, newComment) => {
+    dispatch(updateInCart({ id, comment: newComment }));
     updateLocalStorage(cartProducts);
   };
 
@@ -91,7 +91,9 @@ const Cart = ({ toggleCart }) => {
                     type="number"
                     min={1}
                     defaultValue={product.quantity}
-                    onBlur={(e) => updateQuantity(product.id, e.target.value)}
+                    onBlur={(e) =>
+                      updateQuantity(product.id, parseInt(e.target.value, 10))
+                    }
                     style={{ width: '45px', border: '1px solid #ccc' }}
                   />
                 </div>

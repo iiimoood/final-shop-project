@@ -27,6 +27,7 @@ export class CreateOrderDTO {
   @IsArray()
   @IsObject({ each: true })
   products: Array<{
+    productId: string;
     quantity: number;
     comment?: string;
   }>;

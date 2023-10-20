@@ -37,18 +37,18 @@ const Summary = ({ onSubmitOrder }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const productsForOrder = cartProducts.map((product) => ({
-      productId: product.id,
-      quantity: product.quantity,
-      comment: product.comment || null,
-    }));
-
     const orderData = {
       ...formData,
-      products: productsForOrder,
+      products: cartProducts.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+        comment: product.comment,
+      })),
       totalPrice: totalPrice,
     };
+
     try {
+      console.log(orderData);
       const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
@@ -57,7 +57,7 @@ const Summary = ({ onSubmitOrder }) => {
         body: JSON.stringify(orderData),
       });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       if (response.ok) {
         console.log('Zamówienie wysłane poprawnie. Dane zamówienia: ', data);
         setTimeout(() => {

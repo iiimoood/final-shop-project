@@ -19,7 +19,7 @@ export class OrdersService {
 
   public async create(orderData: CreateOrderDTO): Promise<Order> {
     try {
-      const orderWithProducts: Order = await this.prismaService.order.create({
+      return await this.prismaService.order.create({
         data: {
           firstName: orderData.firstName,
           lastName: orderData.lastName,
@@ -39,8 +39,6 @@ export class OrdersService {
           },
         },
       });
-
-      return orderWithProducts;
     } catch (error) {
       if (error.code === 'P2025') {
         throw new BadRequestException("One or more products don't exist");

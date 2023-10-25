@@ -48,7 +48,6 @@ const Summary = ({ onSubmitOrder }) => {
     };
 
     try {
-      console.log(orderData);
       const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
@@ -57,7 +56,6 @@ const Summary = ({ onSubmitOrder }) => {
         body: JSON.stringify(orderData),
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         console.log('Zamówienie wysłane poprawnie. Dane zamówienia: ', data);
         setTimeout(() => {

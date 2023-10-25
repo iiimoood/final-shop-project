@@ -19,6 +19,8 @@ export class OrdersService {
 
   public async create(orderData: CreateOrderDTO): Promise<Order> {
     try {
+      console.log(orderData.products);
+
       return await this.prismaService.order.create({
         data: {
           firstName: orderData.firstName,

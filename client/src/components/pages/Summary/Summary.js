@@ -60,9 +60,9 @@ const Summary = ({ onSubmitOrder }) => {
         console.log('Zamówienie wysłane poprawnie. Dane zamówienia: ', data);
         setTimeout(() => {
           navigate('/');
-        }, 3000);
-        //localStorage.removeItem('cart');
-        //dispatch(clearCart());
+        }, 2000);
+        localStorage.removeItem('cart');
+        dispatch(clearCart());
       } else {
         console.log('Zamówienie utworzone błędnie: ', data);
       }

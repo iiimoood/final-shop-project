@@ -77,6 +77,7 @@ const cartReducer = (statePart = [], action) => {
     }
     case CLEAR_CART: {
       return {
+        ...statePart,
         products: [],
       };
     }

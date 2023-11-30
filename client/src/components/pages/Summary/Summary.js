@@ -55,6 +55,7 @@ const Summary = ({ onSubmitOrder }) => {
         },
         body: JSON.stringify(orderData),
       });
+
       const data = await response.json();
       if (response.ok) {
         console.log('Zamówienie wysłane poprawnie. Dane zamówienia: ', data);
